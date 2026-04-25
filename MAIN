@@ -56,3 +56,17 @@ local Window = Rayfield:CreateWindow({
 local Universal = Window:CreateTab("Universal", 4483362458)
 
 Universal:CreateSection("Humanoid")
+
+local WS = Universal:CreateInput({
+   Name = "WalkSpeed",
+   CurrentValue = "16",
+   PlaceholderText = "16",
+   RemoveTextAfterFocusLost = false,
+   Flag = "Input1",
+   Callback = function(Text)
+   end,
+})
+
+game:GetService("RunService").RenderStepped:Connect(function()
+   
+end)
