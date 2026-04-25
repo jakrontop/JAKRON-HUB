@@ -67,12 +67,11 @@ local WS = Universal:CreateInput({
 
 Universal:CreateSection("ESP")
 
-local plrESP = Tab:CreateToggle({
+local plrESP = Universal:CreateToggle({
    Name = "Player ESP",
    CurrentValue = false,
    Flag = "P-ESP",
    Callback = function(Value)
-
    end,
 })
 
@@ -88,7 +87,7 @@ local gravity = Universal:CreateInput({
    end,
 })
 
-local Button = Tab:CreateButton({
+local Button = Universal:CreateButton({
    Name = "Remove Jakron Hub",
    Callback = function()
       Rayfield:Destroy()
@@ -107,5 +106,11 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if gravity.CurrentValue ~= "nil(def 196.2)" then
       workspace.Gravity = tonumber(gravity.CurrentValue)
+   end
+
+   if plrESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         local str = v.DisplayName.."(@"..v.Name..") | "
+      end
    end
 end)
