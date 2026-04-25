@@ -4,4 +4,8 @@ function util.distance(i,v)
    return (i.Position - v.Position).Magnitude
 end
 
+function util.teleport(obj,cf)
+   obj.CFrame = cf
+end
+
 return util
