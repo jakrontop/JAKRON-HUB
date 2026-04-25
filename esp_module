@@ -1,0 +1,22 @@
+local module = {}
+
+function module.billboard(obj,color,text)
+   local ui = Instance.new("BillboardGui",obj)
+   local label = Instance.new("TextLabel",ui)
+   label.TextLabel = text or "undefined"
+   label.TextColor3 = color or Color3.new(1,1,1)
+end
+
+function module.highlight(obj,color)
+   local h = Instance.new("Highlight",obj(
+   h.FillColor = color or Color3.new(1,1,1)
+   h.FillTransparency = 0
+   return h
+end
+
+function module.esp(obj,color,text)
+   module.billboard(obj,color,text)
+   module.highlight(obj,color)
+end
+
+return module
