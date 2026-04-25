@@ -157,6 +157,12 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
          esp.esp(v.Character,plrESPc.Color,str)
       end
+   else
+       for i,v in pairs(workspace:GetDescendants()) do
+         if v.Name == "Jakron-ESP" or v.Name == "Jakron-UI" then
+            v:Destroy()
+         end
+      end
    end
 
    if JP.CurrentValue ~= "nil" then
