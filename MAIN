@@ -112,15 +112,20 @@ local plrESP = Universal:CreateToggle({
 
 Universal:CreateSection("Target Required Exploits")
 
-local Dropdown = Tab:CreateDropdown({
+local target = Universal:CreateDropdown({
    Name = "Target",
-   Options = {"Option 1", "Option 2"},
-   CurrentOption = {"Option 1"},
+   Options = util.getPlrNames(),
+   CurrentOption = {util.getPlrNames()[1]},
    MultipleOptions = false,
    Flag = "Dropdown1",
    Callback = function(Options)
    end,
 })
+
+Universal:CreateButton({
+   Name = "Teleport",
+   Callback = function()       util.teleport(hrp,game.Players[target.CurrentOption].Character:GetPivot())
+end})
 
 Universal:CreateSection("Misc")
 
