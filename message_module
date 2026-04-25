@@ -1,0 +1,60 @@
+local MessageModule = {}
+
+local Players = game:GetService("Players")
+
+local container -- will be created once
+
+-- setup UI (runs once)
+local function setup()
+	if container then return end
+	
+	local player = Players.LocalPlayer
+	local playerGui = player:WaitForChild("PlayerGui")
+
+	local screenGui = Instance.new("ScreenGui")
+	screenGui.Name = "MessagesGui"
+	screenGui.ResetOnSpawn = false
+	screenGui.Parent = playerGui
+
+	container = Instance.new("Frame")
+	container.AnchorPoint = Vector2.new(0.5, 0)
+	container.Position = UDim2.new(0.5, 0, 0, 10)
+	container.Size = UDim2.new(0, 400, 0, 300)
+	container.BackgroundTransparency = 1
+	container.Parent = screenGui
+
+	local layout = Instance.new("UIListLayout")
+	layout.SortOrder = Enum.SortOrder.LayoutOrder
+	layout.Padding = UDim.new(0, 5)
+	layout.Parent = container
+end
+
+function MessageModule.message(text, color, duration)
+	setup()
+
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.new(1, 0, 0, 40)
+	label.BackgroundTransparency = 0.2
+	label.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	label.TextColor3 = color or Color3.new(1,1,1)
+	label.TextScaled = true
+	label.Font = Enum.Font.GothamBold
+	label.Text = text
+	label.Parent = container
+
+	duration = duration or 3
+
+	task.spawn(function()
+		task.wait(duration)
+
+		for i = 1, 10 do
+			label.TextTransparency += 0.1
+			label.BackgroundTransparency += 0.08
+			task.wait(0.05)
+		end
+
+		label:Destroy()
+	end)
+end
+
+return MessageModule
