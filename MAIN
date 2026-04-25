@@ -115,7 +115,7 @@ Universal:CreateSection("Target Required Exploits")
 local target = Universal:CreateDropdown({
    Name = "Target",
    Options = util.getPlrNames(),
-   CurrentOption = {util.getPlrNames()[1]},
+   CurrentOption = util.getPlrNames()[1],
    MultipleOptions = false,
    Flag = "Dropdown1",
    Callback = function(Options)
@@ -124,7 +124,8 @@ local target = Universal:CreateDropdown({
 
 Universal:CreateButton({
    Name = "Teleport",
-   Callback = function()       util.teleport(hrp,game.Players[target.CurrentOption].Character:GetPivot())
+   Callback = function()
+print(target.CurrentOption)   util.teleport(hrp,game.Players[target.CurrentOption].Character:GetPivot())
 end})
 
 Universal:CreateSection("Misc")
