@@ -1,5 +1,6 @@
 local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
 local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/esp_module'))()
+local util = (game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
 
 local connections = {}
 
@@ -20,10 +21,12 @@ end
 local plr = game.Players.LocalPlayer
 local char = plr.Character
 local hum = char.Humanoid
+local hrp = char.HumanoidRootPart
 
 plr.CharacterAdded:Connect(function(newChar)
   char = newChar
   hum = char:WaitForChild("Humanoid")
+  hrp = char.HumanoidRootPart
 end)
 
 local Window = Rayfield:CreateWindow({
@@ -110,7 +113,9 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if plrESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         local str = v.DisplayName.."(@"..v.Name..") | "
+         local str = v.DisplayName.."(@"..v.Name..") | "..util.distance(hrp,v.Character.HumanoidRootPart).."m"
+
+         esp.esp(v.Character,Color3.new(1,1,1),str)
       end
    end
 end)
