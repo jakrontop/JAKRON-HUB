@@ -68,6 +68,30 @@ local WS = Universal:CreateInput({
    end,
 })
 
+local JP
+
+if hum.UseJumpPower then
+   JP = Universal:CreateInput({
+    Name = "JumpPower",
+    CurrentValue = "nil",
+    PlaceholderText = "nil",
+    RemoveTextAfterFocusLost = false,
+    Flag = "jumppowerd",
+    Callback = function(Text)
+   end,
+})
+else
+JP = Universal:CreateInput({
+   Name = "JumpHeight",
+   CurrentValue = "nil",
+   PlaceholderText = "nil",
+   RemoveTextAfterFocusLost = false,
+   Flag = "jumpheight",
+   Callback = function(Text)
+   end,
+})
+end
+
 Universal:CreateSection("ESP")
 
 local plrESPc = Universal:CreateColorPicker({
@@ -131,6 +155,14 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
          local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
          esp.esp(v.Character,plrESPc.Color,str)
+      end
+   end
+
+   if JP.CurrentValue ~= "nil" then
+      if hum.UseJumpPower then
+         hum.JumpPower = JP.CurrentValue
+      else
+         hum.JumpHeight = JP.CurrentValue
       end
    end
 end)
