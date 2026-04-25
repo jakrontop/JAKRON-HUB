@@ -92,6 +92,13 @@ JP = Universal:CreateInput({
 })
 end
 
+local infJump = Universal:CreateToggle({
+   Name = "Infinite Jump",
+   CurrentValue = false,
+   Flag = "jump",
+   Callback = function(Value)
+end})
+
 Universal:CreateSection("ESP")
 
 local plrESPc = Universal:CreateColorPicker({
@@ -200,10 +207,16 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 end)
 
 
-game.Players.PlayerAdded:Connect(function()
+connections.plrAdd = game.Players.PlayerAdded:Connect(function()
 target:Refresh(util.getPlrNames())
 end)
 
-game.Players.PlayerRemoving:Connect(function()
+connections.plrRemove = game.Players.PlayerRemoving:Connect(function()
 target:Refresh(util.getPlrNames())
+end)
+
+game.UserInputService.JumpRequest:Connect(function()
+	if hum and infJump.CurrentValue == true then
+		hum:ChangeState(Enum.HumanoidStateType.Jumping)
+	end
 end)
