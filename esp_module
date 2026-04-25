@@ -10,6 +10,7 @@ function module.billboard(obj,color,text)
    ui.Name = "Jakron-UI"
    ui.AlwaysOnTop = true
    local label = Instance.new("TextLabel",ui)
+   label.Size = UDim2.new(1,0,1,0)
    label.Text = text or "undefined"
    label.TextColor3 = color or Color3.new(1,1,1)
    label.TextScaled = true
