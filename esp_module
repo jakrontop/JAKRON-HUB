@@ -9,6 +9,7 @@ function module.billboard(obj,color,text)
    local ui = Instance.new("BillboardGui",obj)
    ui.Name = "Jakron-UI"
    ui.AlwaysOnTop = true
+   ui.Size = UDim2.new(0,200,0,50)
    local label = Instance.new("TextLabel",ui)
    label.Size = UDim2.new(1,0,1,0)
    label.Text = text or "undefined"
