@@ -64,6 +64,17 @@ local WS = Universal:CreateInput({
    end,
 })
 
+Universal:CreateSection("ESP")
+
+local plrESP = Tab:CreateToggle({
+   Name = "Player ESP",
+   CurrentValue = false,
+   Flag = "P-ESP",
+   Callback = function(Value)
+
+   end,
+})
+
 Universal:CreateSection("Misc")
 
 local gravity = Universal:CreateInput({
