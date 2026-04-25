@@ -1,6 +1,4 @@
-local modules = {
-msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
-}
+local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
 
 msg.message("Loading Jakron Hub...", Color3.new(1,1,1), 5)
 
