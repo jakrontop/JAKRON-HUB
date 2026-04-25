@@ -110,6 +110,18 @@ local plrESP = Universal:CreateToggle({
    end,
 })
 
+Universal:CreateSection("Target Required Exploits")
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Target",
+   Options = {"Option 1", "Option 2"},
+   CurrentOption = {"Option 1"},
+   MultipleOptions = false,
+   Flag = "Dropdown1",
+   Callback = function(Options)
+   end,
+})
+
 Universal:CreateSection("Misc")
 
 local gravity = Universal:CreateInput({
@@ -142,18 +154,6 @@ local Button = Universal:CreateButton({
 })
 
 
-
-
-
-local v0 = Window:CreateTab("RNG Fights", "rewind")
-
-v0:CreateSection("Teleports")
-
-local Button = v0:CreateButton({
-   Name = "Shop",
-   Callback = function()
-    util.teleport(hrp,CFrame.new(-111.5, 71.7, 142.9))
-end})
 
 
 
