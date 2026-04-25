@@ -101,11 +101,18 @@ local gravity = Universal:CreateInput({
 local Button = Universal:CreateButton({
    Name = "Remove Jakron Hub",
    Callback = function()
+      msg.message("Removing Jakron Hub...", Color3.new(1,0,0), 3)
       Rayfield:Destroy()
 
       for i,v in pairs(connections) do
          v:Disconnect()
          v = nil
+      end
+
+      for i,v in pairs(workspace:GetDescendants()) do
+         if v.Name == "Jakron-ESP" or v.Name == "Jakron-UI" then
+            v:Destroy()
+         end
       end
    end,
 })
