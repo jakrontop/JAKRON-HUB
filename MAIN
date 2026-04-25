@@ -198,3 +198,12 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
       end
    end
 end)
+
+
+game.Players.PlayerAdded:Connect(function()
+target:Refresh(util.getPlrNames())
+end)
+
+game.Players.PlayerRemoving:Connect(function()
+target:Refresh(util.getPlrNames())
+end)
