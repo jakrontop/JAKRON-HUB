@@ -124,8 +124,7 @@ local target = Universal:CreateDropdown({
 
 Universal:CreateButton({
    Name = "Teleport",
-   Callback = function()
-print(target.CurrentOption)   util.teleport(hrp,game.Players[target.CurrentOption].Character:GetPivot())
+   Callback = function()  util.teleport(hrp,game.Players[target.CurrentOption[1]].Character:GetPivot())
 end})
 
 Universal:CreateSection("Misc")
