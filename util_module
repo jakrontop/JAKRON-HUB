@@ -8,4 +8,15 @@ function util.teleport(obj,cf)
    obj.CFrame = cf
 end
 
+function util.getPlrNames()
+ local p = game.Players:GetPlayers()
+ local t = {}
+
+ for i,v in pairs(p) do
+    table.insert(t,p.Name)
+ end
+
+ return t
+end
+
 return util
