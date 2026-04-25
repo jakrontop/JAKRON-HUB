@@ -1,0 +1,7 @@
+local util = {}
+
+function util.distance(i,v)
+   return (i.Position - v.Position).Magnitude
+end
+
+return util
