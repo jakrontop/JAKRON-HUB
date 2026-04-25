@@ -113,7 +113,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if plrESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         local str = v.DisplayName.."(@"..v.Name..") | "..util.distance(hrp,v.Character.HumanoidRootPart).."m"
+         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
          esp.esp(v.Character,Color3.new(1,1,1),str)
       end
