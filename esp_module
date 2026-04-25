@@ -2,7 +2,7 @@ local module = {}
 
 function module.billboard(obj,color,text)
    if obj:FindFirstChild("Jakron-UI") then
-      obj["Jakron-UI"].TextLabel.TextColor = color
+      obj["Jakron-UI"].TextLabel.TextColor3 = color
       return
    end
 
