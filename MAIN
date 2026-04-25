@@ -70,6 +70,14 @@ local WS = Universal:CreateInput({
 
 Universal:CreateSection("ESP")
 
+local plrESPc = Universal:CreateColorPicker({
+    Name = "Player ESP Color",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "P-ESP-C",
+    Callback = function(Value)
+    end
+})
+
 local plrESP = Universal:CreateToggle({
    Name = "Player ESP",
    CurrentValue = false,
@@ -115,7 +123,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
       for i,v in pairs(game.Players:GetPlayers()) do
          local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
-         esp.esp(v.Character,Color3.new(1,1,1),str)
+         esp.esp(v.Character,plrESPc.Color,str)
       end
    end
 end)
