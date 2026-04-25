@@ -152,6 +152,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if plrESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") return end
          local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
          esp.esp(v.Character,plrESPc.Color,str)
