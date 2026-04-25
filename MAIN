@@ -152,8 +152,13 @@ v0:CreateSection("Teleports")
 local Button = v0:CreateButton({
    Name = "Shop",
    Callback = function()
-    
+    util.teleport(hrp,CFrame.new(-111.5, 71.7, 142.9))
 end})
+
+
+
+
+
 
 
 connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(function()
