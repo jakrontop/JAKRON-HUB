@@ -141,6 +141,21 @@ local Button = Universal:CreateButton({
    end,
 })
 
+
+
+
+
+local v0 = Window:CreateTab("RNG Fights", "rewind")
+
+v0:CreateSection("Teleports")
+
+local Button = v0:CreateButton({
+   Name = "Shop",
+   Callback = function()
+    
+end})
+
+
 connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(function()
    if WS.CurrentValue ~= "nil" then
       hum.WalkSpeed = tonumber(WS.CurrentValue)
