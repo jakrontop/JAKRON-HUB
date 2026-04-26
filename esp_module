@@ -1,14 +1,15 @@
 local module = {}
 
-function module.billboard(obj,color,text)
-   if obj:FindFirstChild("Jakron-UI") then
-      obj["Jakron-UI"].TextLabel.TextColor3 = color
-obj["Jakron-UI"].TextLabel.Text = text
+function module.billboard(obj,color,text,name)
+   name = name or "Jakron-UI"
+   if obj:FindFirstChild(name) then
+      obj[name].TextLabel.TextColor3 = color
+obj[name].TextLabel.Text = text
       return
    end
 
    local ui = Instance.new("BillboardGui",obj)
-   ui.Name = "Jakron-UI"
+   ui.Name = name
    ui.AlwaysOnTop = true
    ui.Size = UDim2.new(0,200,0,50)
    local label = Instance.new("TextLabel",ui)
@@ -20,22 +21,23 @@ obj["Jakron-UI"].TextLabel.Text = text
    label.TextStrokeTransparency = 0
 end
 
-function module.highlight(obj,color)
-   if obj:FindFirstChild("Jakron-ESP") then
-      obj["Jakron-ESP"].FillColor = color
+function module.highlight(obj,color,name)
+   name = name or "Jakron-ESP"
+   if obj:FindFirstChild(name) then
+      obj[name].FillColor = color
       return
    end
 
    local h = Instance.new("Highlight",obj)
-   h.Name = "Jakron-ESP"
+   h.Name = name
    h.FillColor = color or Color3.new(1,1,1)
    h.FillTransparency = 0
    return h
 end
 
-function module.esp(obj,color,text)
-   module.billboard(obj,color,text)
-   module.highlight(obj,color)
+function module.esp(obj,color,text,name)
+   module.billboard(obj,color,text,name)
+   module.highlight(obj,color,name)
 end
 
 return module
