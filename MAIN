@@ -3,6 +3,7 @@ local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop
 local util = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
 
 local connections = {}
+local assets = {}
 
 msg.message("Loading Jakron Hub...", Color3.new(1,1,1), 5)
 
@@ -167,6 +168,11 @@ local Button = Universal:CreateButton({
          if v.Name == "Jakron-ESP" or v.Name == "Jakron-UI" then
             v:Destroy()
          end
+      end
+
+      for i,v in pairs(assets) do
+         v:Destroy()
+         v = nil
       end
    end,
 })
