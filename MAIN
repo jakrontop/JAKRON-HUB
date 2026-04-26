@@ -234,7 +234,7 @@ local murdESP = mm2:CreateToggle({
    end
 })
 
-local sherESPc = Universal:CreateColorPicker({
+local sherESPc = mm2:CreateColorPicker({
     Name = "Sheriff ESP Color",
     Color = Color3.fromRGB(0,0,255),
     Flag = "Sher-ESP-C",
@@ -242,7 +242,7 @@ local sherESPc = Universal:CreateColorPicker({
     end
 })
 
-local sherESP = Universal:CreateToggle({
+local sherESP = mm2:CreateToggle({
    Name = "Sheriff ESP",
    CurrentValue = false,
    Flag = "sher-ESP",
@@ -257,7 +257,7 @@ local sherESP = Universal:CreateToggle({
    end
 })
 
-local innoESPc = Universal:CreateColorPicker({
+local innoESPc = mm2:CreateColorPicker({
     Name = "Innocent ESP Color",
     Color = Color3.fromRGB(0,255,0),
     Flag = "Inno-ESP-C",
@@ -265,7 +265,7 @@ local innoESPc = Universal:CreateColorPicker({
     end
 })
 
-local innoESP = Universal:CreateToggle({
+local innoESP = mm2:CreateToggle({
    Name = "Innocent ESP",
    CurrentValue = false,
    Flag = "inno-ESP",
@@ -305,7 +305,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if plrESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
          local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m | "..math.round(v.Character.Humanoid.Health).."/"..math.round(v.Character.Humanoid.MaxHealth).."hp"
 
          esp.esp(v.Character,plrESPc.Color,str)
@@ -314,7 +314,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if murdESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
 
          if v.Backpack:FindFirstChild("Knife") then
             local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
@@ -326,7 +326,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if sherESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
 
          if v.Backpack:FindFirstChild("Gun") then
             local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
@@ -338,7 +338,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if innoESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
 
          if not v.Backpack:FindFirstChild("Gun") and not v:FindFirstChild("Knife") then
             local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
