@@ -76,7 +76,7 @@ local Window = Rayfield:CreateWindow({
    KeySystem = false,
 })
 
-local Universal = Window:CreateTab("Universal", 4483362458)
+local Universal = Window:CreateTab("Universal", 1169418192)
 
 Universal:CreateSection("Humanoid")
 
@@ -209,6 +209,53 @@ local Button = Universal:CreateButton({
 
 
 
+local mm2 = Window:CreateTab("MM2",838484753)
+
+local murdESPc = mm2:CreateColorPicker({
+    Name = "Murderer ESP Color",
+    Color = Color3.fromRGB(255,0),
+    Flag = "murd-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local murdESP = mm2:CreateToggle({
+   Name = "Murderer ESP",
+   CurrentValue = false,
+   Flag = "murd-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-murd" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
+local sherESPc = Universal:CreateColorPicker({
+    Name = "Sheriff ESP Color",
+    Color = Color3.fromRGB(0,0,255),
+    Flag = "Sher-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local sherESP = Universal:CreateToggle({
+   Name = "Sheriff ESP",
+   CurrentValue = false,
+   Flag = "sher-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-sher" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
 
 
 
@@ -235,10 +282,32 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if plrESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") return end
+         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
          local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m | "..math.round(v.Character.Humanoid.Health).."/"..math.round(v.Character.Humanoid.MaxHealth).."hp"
 
          esp.esp(v.Character,plrESPc.Color,str)
+      end
+   end
+
+   if murdESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+      if v.Backpack:FindFirstChild("Knife") then
+         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+         esp.esp(v.Character,murdESPc.Color,str,"Jakron-murd")
+      end
+   end
+
+     if sherESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+      if v.Backpack:FindFirstChild("Gun") then
+         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+         esp.esp(v.Character,sherESPc.Color,str,"Jakron-sher")
       end
    end
 
