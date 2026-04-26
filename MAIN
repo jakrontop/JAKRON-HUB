@@ -1,6 +1,7 @@
 local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
 local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/esp_module'))()
 local util = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
+local Stats = game:GetService("Stats")
 
 local connections = {}
 local assets = {}
@@ -20,8 +21,6 @@ else
 end
 
 function enablePerfStats()
-
-    -- UI
     local gui = Instance.new("ScreenGui", plr.PlayerGui)
     gui.Name = "Jakron-GUI"
     gui.ResetOnSpawn = false
@@ -38,6 +37,7 @@ function enablePerfStats()
     label.TextXAlignment = Enum.TextXAlignment.Left
     label.Text = "FPS: ... | Ping: ..."
     label.Parent = gui
+    assets.perflabel = label
 end
 
 local plr = game.Players.LocalPlayer
@@ -142,7 +142,7 @@ local plrESP = Universal:CreateToggle({
             v:Destroy()
          end
       end
-   end,
+   end
 })
 
 Universal:CreateSection("Target Required Exploits")
@@ -253,7 +253,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
         end
 
    local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
-            label.Text = "FPS: " .. fps .. " | " .. ping .. " ms"
+            assets.perflabel.Text = "FPS: " .. fps .. " | " .. ping .. " ms"
    end
 end)
 
@@ -270,7 +270,7 @@ connections.plrRemove = game.Players.PlayerRemoving:Connect(function()
 target:Refresh(util.getPlrNames())
 end)
 
-game.UserInputService.JumpRequest:Connect(function()
+connections.infJump = game.UserInputService.JumpRequest:Connect(function()
 	if hum and infJump.CurrentValue == true then
 		hum:ChangeState(Enum.HumanoidStateType.Jumping)
 	end
