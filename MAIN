@@ -265,21 +265,6 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
    local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
             assets.perflabel.Text = "FPS: " .. fps .. " | " .. ping .. " ms"
    end
-
-   if itemESP.CurrentValue == true then
-      if not assets["itemfolder"] then
-         for i,v in     pairs(workspace:GetChildren()) do
-            if tonumber(v.Name) then
-               assets.itemfolder = v
-               break
-            end
-         end
-      end
-
-      for i,v in pairs(assets.itemfolder:GetChildren()) do
-         esp.esp(v,itemESPc.Color,v.Name...." | "..math.round(util.distance(hrp,v)).."m"
-      end
-   end
 end)
 
 
