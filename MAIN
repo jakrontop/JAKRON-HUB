@@ -257,6 +257,29 @@ local sherESP = Universal:CreateToggle({
    end
 })
 
+local innoESPc = Universal:CreateColorPicker({
+    Name = "Innocent ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "Inno-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local innoESP = Universal:CreateToggle({
+   Name = "Innocent ESP",
+   CurrentValue = false,
+   Flag = "inno-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-inno" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
 
 
 
@@ -293,21 +316,35 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
       for i,v in pairs(game.Players:GetPlayers()) do
          if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
 
-      if v.Backpack:FindFirstChild("Knife") then
-         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+         if v.Backpack:FindFirstChild("Knife") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
-         esp.esp(v.Character,murdESPc.Color,str,"Jakron-murd")
+            esp.esp(v.Character,murdESPc.Color,str,"Jakron-murd")
+         end
       end
    end
 
-     if sherESP.CurrentValue == true then
+   if sherESP.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
          if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
 
-      if v.Backpack:FindFirstChild("Gun") then
-         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+         if v.Backpack:FindFirstChild("Gun") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
-         esp.esp(v.Character,sherESPc.Color,str,"Jakron-sher")
+            esp.esp(v.Character,sherESPc.Color,str,"Jakron-sher")
+         end
+      end
+   end
+
+   if innoESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+         if not v.Backpack:FindFirstChild("Gun") and not v:FindFirstChild("Knife") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+            esp.esp(v.Character,innoESPc.Color,str,"Jakron-inno")
+         end
       end
    end
 
