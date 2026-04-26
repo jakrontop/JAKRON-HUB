@@ -2,6 +2,11 @@ local module = {}
 
 function module.billboard(obj,color,text,name)
    name = name or "Jakron-UI"
+
+   if name ~= "Jakron-UI" then
+      name = name.."-ui"
+   end
+
    if obj:FindFirstChild(name) then
       obj[name].TextLabel.TextColor3 = color
 obj[name].TextLabel.Text = text
