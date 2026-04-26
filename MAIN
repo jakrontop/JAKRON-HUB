@@ -213,35 +213,6 @@ local Button = Universal:CreateButton({
 
 
 
-local Piggy = Window:CreateTab("Piggy", 4483362458)
-
-Piggy:CreateSection("ESP")
-
-local itemESPc = Piggy:CreateColorPicker({
-    Name = "Item ESP Color",
-    Color = Color3.fromRGB(255,255,255),
-    Flag = "I-ESP-C",
-    Callback = function(Value)
-    end
-})
-
-local ItemESP = Piggy:CreateToggle({
-   Name = "Item ESP",
-   CurrentValue = false,
-   Flag = "I-ESP",
-   Callback = function(Value)
-      if Value == false then
-         for i,v in pairs(workspace:GetDescendants()) do
-           if v.Name == "Iesp" or v.Name == "Iui" then
-             v:Destroy()
-           end
-         end
-      end
-   end
-})
-
-
-
 
 
 
