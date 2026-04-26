@@ -226,7 +226,7 @@ local murdESP = mm2:CreateToggle({
    Callback = function(Value)
       if Value == false then
          for i,v in pairs(workspace:GetDescendants()) do
-           if v.Name == "Jakron-murd" then
+           if v.Name == "Jakron-murd" or v.Name == "Jakron-murd-ui" then
              v:Destroy()
            end
          end
@@ -249,7 +249,7 @@ local sherESP = Universal:CreateToggle({
    Callback = function(Value)
       if Value == false then
          for i,v in pairs(workspace:GetDescendants()) do
-           if v.Name == "Jakron-sher" then
+           if v.Name == "Jakron-sher" or v.Name == "Jakron-sher-ui" then
              v:Destroy()
            end
          end
@@ -272,7 +272,7 @@ local innoESP = Universal:CreateToggle({
    Callback = function(Value)
       if Value == false then
          for i,v in pairs(workspace:GetDescendants()) do
-           if v.Name == "Jakron-inno" then
+           if v.Name == "Jakron-inno" or v.Name == "Jakron-inno-ui" then
              v:Destroy()
            end
          end
