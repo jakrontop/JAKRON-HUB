@@ -1,9 +1,6 @@
-print("JAKRON HUB")
-
 local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
 local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/esp_module'))()
 local util = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
-print("required modules")
 
 local Stats = game:GetService("Stats")
 
