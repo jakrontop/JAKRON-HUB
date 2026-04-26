@@ -2,8 +2,6 @@ local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop
 local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/esp_module'))()
 local util = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
 
-local Stats = game:GetService("Stats")
-
 local connections = {}
 local assets = {}
 
@@ -21,7 +19,12 @@ else
  msg.message("Successfully loaded Jakron Hub!", Color3.new(0,1,0),3)
 end
 
-function enablePerfStats()
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local hum = char.Humanoid
+local hrp = char.HumanoidRootPart
+
+function setupUI()
     local gui = Instance.new("ScreenGui", plr.PlayerGui)
     gui.Name = "Jakron-GUI"
     gui.ResetOnSpawn = false
@@ -41,10 +44,7 @@ function enablePerfStats()
     assets.perflabel = label
 end
 
-local plr = game.Players.LocalPlayer
-local char = plr.Character
-local hum = char.Humanoid
-local hrp = char.HumanoidRootPart
+setupUI()
 
 plr.CharacterAdded:Connect(function(newChar)
   char = newChar
@@ -209,8 +209,8 @@ local Button = Universal:CreateButton({
 
 
 
-
-
+print("STAT BLYAT")
+local Stats = game:GetService("Stats")
 
 
 local fps = 0
@@ -242,6 +242,8 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
          hum.JumpHeight = JP.CurrentValue
       end
    end
+
+   assets.perflabel.Visible = perfmode.CurrentValue
 
    if perfmode.CurrentValue == true then
       frames += 1
@@ -276,3 +278,5 @@ connections.infJump = game.UserInputService.JumpRequest:Connect(function()
 		hum:ChangeState(Enum.HumanoidStateType.Jumping)
 	end
 end)
+
+print("fak")
