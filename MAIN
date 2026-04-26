@@ -19,6 +19,27 @@ else
  msg.message("Successfully loaded Jakron Hub!", Color3.new(0,1,0),3)
 end
 
+function enablePerfStats()
+
+    -- UI
+    local gui = Instance.new("ScreenGui", plr.PlayerGui)
+    gui.Name = "Jakron-GUI"
+    gui.ResetOnSpawn = false
+    assets.GUI = gui
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0, 200, 0, 30)
+    label.Position = UDim2.new(0, 10, 0, 10)
+    label.BackgroundTransparency = 1
+    label.TextTransparency = 0.6
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.Font = Enum.Font.SourceSans
+    label.TextSize = 16
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Text = "FPS: ... | Ping: ..."
+    label.Parent = gui
+end
+
 local plr = game.Players.LocalPlayer
 local char = plr.Character
 local hum = char.Humanoid
@@ -153,6 +174,14 @@ local gravity = Universal:CreateInput({
    end,
 })
 
+local perfmode = Universal:CreateToggle({
+   Name = "Show Performance",
+   CurrentValue = false,
+   Flag = "Peevert",
+   Callback = function(Value)
+
+end})
+
 local Button = Universal:CreateButton({
    Name = "Remove Jakron Hub",
    Callback = function()
@@ -183,7 +212,9 @@ local Button = Universal:CreateButton({
 
 
 
-
+local fps = 0
+    local frames = 0
+    local lastTime = tick()
 
 connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(function()
    if WS.CurrentValue ~= "nil" then
@@ -210,7 +241,25 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
          hum.JumpHeight = JP.CurrentValue
       end
    end
+
+   if perfmode.CurrentValue == true then
+      frames += 1
+        local now = tick()
+
+        if now - lastTime >= 1 then
+            fps = frames
+            frames = 0
+            lastTime = now
+        end
+
+   local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+            label.Text = "FPS: " .. fps .. " | " .. ping .. " ms"
+   end
 end)
+
+
+
+
 
 
 connections.plrAdd = game.Players.PlayerAdded:Connect(function()
