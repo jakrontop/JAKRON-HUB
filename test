@@ -1,0 +1,404 @@
+local msg = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/message_module'))()
+local esp = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/esp_module'))()
+local util = loadstring(game:HttpGet('https://raw.githubusercontent.com/jakrontop/JAKRON-HUB/refs/heads/main/util_module'))()
+
+local connections = {}
+local assets = {}
+
+msg.message("Loading Jakron Hub...", Color3.new(1,1,1), 5)
+
+local Rayfield
+
+local s,e = pcall(function()
+ Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+end)
+
+if not s then
+ msg.message("Failed to load Jakron Hub...", Color3.new(1,1,0),3)
+return
+end
+
+local plr = game.Players.LocalPlayer
+local char = plr.Character
+local hum = char.Humanoid
+local hrp = char.HumanoidRootPart
+
+function setupUI()
+    local gui = Instance.new("ScreenGui", plr.PlayerGui)
+    gui.Name = "Jakron-GUI"
+    gui.ResetOnSpawn = false
+    assets.GUI = gui
+
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0, 200, 0, 30)
+    label.Position = UDim2.new(0, 10, 0, 10)
+    label.BackgroundTransparency = 1
+    label.TextTransparency = 0.6
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.Font = Enum.Font.SourceSans
+    label.TextSize = 16
+    label.TextXAlignment = Enum.TextXAlignment.Left
+    label.Text = "FPS: ... | Ping: ..."
+    label.Parent = gui
+    assets.perflabel = label
+end
+
+setupUI()
+
+plr.CharacterAdded:Connect(function(newChar)
+  char = newChar
+  hum = char:WaitForChild("Humanoid")
+  hrp = char.HumanoidRootPart
+end)
+
+local Window = Rayfield:CreateWindow({
+   Name = "Jakron Hub",
+   Icon = 0,
+   LoadingTitle = "Rayfield Interface Suite",
+   LoadingSubtitle = "by Sirius",
+   ShowText = "Rayfield",
+   Theme = "Default",
+   ToggleUIKeybind = "K",
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false,
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil,
+      FileName = "Big Hub"
+   },
+
+   Discord = {
+      Enabled = false,
+      Invite = "noinvitelink",
+      RememberJoins = true
+   },
+
+   KeySystem = false,
+})
+
+local Universal = Window:CreateTab("Universal", 1169418192)
+
+Universal:CreateSection("Humanoid")
+
+local WS = Universal:CreateInput({
+   Name = "WalkSpeed",
+   CurrentValue = "nil",
+   PlaceholderText = "nil",
+   RemoveTextAfterFocusLost = false,
+   Flag = "wlakspeed",
+   Callback = function(Text)
+   end,
+})
+
+local JP
+
+if hum.UseJumpPower then
+   JP = Universal:CreateInput({
+    Name = "JumpPower",
+    CurrentValue = "nil",
+    PlaceholderText = "nil",
+    RemoveTextAfterFocusLost = false,
+    Flag = "jumppowerd",
+    Callback = function(Text)
+   end,
+})
+else
+JP = Universal:CreateInput({
+   Name = "JumpHeight",
+   CurrentValue = "nil",
+   PlaceholderText = "nil",
+   RemoveTextAfterFocusLost = false,
+   Flag = "jumpheight",
+   Callback = function(Text)
+   end,
+})
+end
+
+local infJump = Universal:CreateToggle({
+   Name = "Infinite Jump",
+   CurrentValue = false,
+   Flag = "jump",
+   Callback = function(Value)
+end})
+
+Universal:CreateSection("ESP")
+
+local plrESPc = Universal:CreateColorPicker({
+    Name = "Player ESP Color",
+    Color = Color3.fromRGB(255,255,255),
+    Flag = "P-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local plrESP = Universal:CreateToggle({
+   Name = "Player ESP",
+   CurrentValue = false,
+   Flag = "P-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-ESP" or v.Name == "Jakron-UI" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
+Universal:CreateSection("Target Required Exploits")
+
+local target = Universal:CreateDropdown({
+   Name = "Target",
+   Options = util.getPlrNames(),
+   CurrentOption = util.getPlrNames()[1],
+   MultipleOptions = false,
+   Flag = "Dropdown1",
+   Callback = function(Options)
+   end,
+})
+
+Universal:CreateButton({
+   Name = "Teleport",
+   Callback = function()  util.teleport(hrp,game.Players[target.CurrentOption[1]].Character:GetPivot())
+end})
+
+Universal:CreateSection("Misc")
+
+local gravity = Universal:CreateInput({
+   Name = "Gravity",
+   CurrentValue = "nil(def 196.2)",
+   PlaceholderText = "nil",
+   RemoveTextAfterFocusLost = false,
+   Flag = "gravity",
+   Callback = function(Text)
+   end,
+})
+
+local perfmode = Universal:CreateToggle({
+   Name = "Show Performance",
+   CurrentValue = false,
+   Flag = "Peevert",
+   Callback = function(Value)
+
+end})
+
+Universal:CreateButton({
+   Name = "Rejoin server",
+   Callback = function()
+   local S, E = pcall(function()
+TeleportService:TeleportToPlaceInstance(
+    game.PlaceId,game.JobId,plr)
+    end)
+ end})
+
+local Button = Universal:CreateButton({
+   Name = "Remove Jakron Hub",
+   Callback = function()
+      msg.message("Removing Jakron Hub...", Color3.new(1,0,0), 3)
+      Rayfield:Destroy()
+
+      for i,v in pairs(connections) do
+         v:Disconnect()
+         v = nil
+      end
+
+      for i,v in pairs(workspace:GetDescendants()) do
+         if v.Name == "Jakron-ESP" or v.Name == "Jakron-UI" then
+            v:Destroy()
+         end
+      end
+
+      for i,v in pairs(assets) do
+         v:Destroy()
+         v = nil
+      end
+   end,
+})
+
+
+
+local mm2 = Window:CreateTab("MM2",838484753)
+
+local murdESPc = mm2:CreateColorPicker({
+    Name = "Murderer ESP Color",
+    Color = Color3.fromRGB(255,0),
+    Flag = "murd-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local murdESP = mm2:CreateToggle({
+   Name = "Murderer ESP",
+   CurrentValue = false,
+   Flag = "murd-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-murd" or v.Name == "Jakron-murd-ui" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
+local sherESPc = mm2:CreateColorPicker({
+    Name = "Sheriff ESP Color",
+    Color = Color3.fromRGB(0,0,255),
+    Flag = "Sher-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local sherESP = mm2:CreateToggle({
+   Name = "Sheriff ESP",
+   CurrentValue = false,
+   Flag = "sher-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-sher" or v.Name == "Jakron-sher-ui" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
+local innoESPc = mm2:CreateColorPicker({
+    Name = "Innocent ESP Color",
+    Color = Color3.fromRGB(0,255,0),
+    Flag = "Inno-ESP-C",
+    Callback = function(Value)
+    end
+})
+
+local innoESP = mm2:CreateToggle({
+   Name = "Innocent ESP",
+   CurrentValue = false,
+   Flag = "inno-ESP",
+   Callback = function(Value)
+      if Value == false then
+         for i,v in pairs(workspace:GetDescendants()) do
+           if v.Name == "Jakron-inno" or v.Name == "Jakron-inno-ui" then
+             v:Destroy()
+           end
+         end
+      end
+   end
+})
+
+
+
+
+
+
+
+print("STAT BLYAT")
+local Stats = game:GetService("Stats")
+
+
+local fps = 0
+    local frames = 0
+    local lastTime = tick()
+
+connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(function()
+   if WS.CurrentValue ~= "nil" then
+      hum.WalkSpeed = tonumber(WS.CurrentValue)
+   end
+
+   if gravity.CurrentValue ~= "nil(def 196.2)" then
+      workspace.Gravity = tonumber(gravity.CurrentValue)
+   end
+
+   if plrESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+         local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m | "..math.round(v.Character.Humanoid.Health).."/"..math.round(v.Character.Humanoid.MaxHealth).."hp"
+
+         esp.esp(v.Character,plrESPc.Color,str)
+      end
+   end
+
+   if murdESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+         if v.Backpack:FindFirstChild("Knife") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+            esp.esp(v.Character,murdESPc.Color,str,"Jakron-murd")
+         end
+      end
+   end
+
+   if sherESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+         if v.Backpack:FindFirstChild("Gun") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+            esp.esp(v.Character,sherESPc.Color,str,"Jakron-sher")
+         end
+      end
+   end
+
+   if innoESP.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         if not v.Character or not v.Character:FindFirstChild("HumanoidRootPart") then warn("bug: hrp,esp") continue end
+
+         if not v.Backpack:FindFirstChild("Gun") and not v:FindFirstChild("Knife") then
+            local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
+
+            esp.esp(v.Character,innoESPc.Color,str,"Jakron-inno")
+         end
+      end
+   end
+
+   if JP.CurrentValue ~= "nil" then
+      if hum.UseJumpPower then
+         hum.JumpPower = JP.CurrentValue
+      else
+         hum.JumpHeight = JP.CurrentValue
+      end
+   end
+
+   assets.perflabel.Visible = perfmode.CurrentValue
+
+   if perfmode.CurrentValue == true then
+      frames += 1
+        local now = tick()
+
+        if now - lastTime >= 1 then
+            fps = frames
+            frames = 0
+            lastTime = now
+        end
+
+   local ping = math.floor(Stats.Network.ServerStatsItem["Data Ping"]:GetValue())
+            assets.perflabel.Text = "FPS: " .. fps .. " | " .. ping .. " ms"
+   end
+end)
+
+
+
+
+
+
+connections.plrAdd = game.Players.PlayerAdded:Connect(function()
+target:Refresh(util.getPlrNames())
+end)
+
+connections.plrRemove = game.Players.PlayerRemoving:Connect(function()
+target:Refresh(util.getPlrNames())
+end)
+
+connections.infJump = game.UserInputService.JumpRequest:Connect(function()
+        if hum and infJump.CurrentValue == true then
+                hum:ChangeState(Enum.HumanoidStateType.Jumping)
+        end
+end)
+
+msg.message("Successfully loaded Jakron Hub!", Color3.new(0,1,0),3)
