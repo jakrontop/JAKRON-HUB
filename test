@@ -183,13 +183,11 @@ local perfmode = Universal:CreateToggle({
 
 end})
 
-Universal:CreateButton({
-   Name = "Rejoin server",
+local LTA = Universal:CreateToggle({
+   Name = "Local Teleport All",
+   CurrentValue = false,
+   Flag = "femboy",
    Callback = function()
-   local S, E = pcall(function()
-TeleportService:TeleportToPlaceInstance(
-    game.PlaceId,game.JobId,plr)
-    end)
  end})
 
 local Button = Universal:CreateButton({
@@ -354,6 +352,11 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
             esp.esp(v.Character,innoESPc.Color,str,"Jakron-inno")
          end
+
+         if v.Character:FindFirstChild("Jakron-inno") then
+            v.Character["Jakron-inno"]:Destroy()
+            v.Character["Jakron-inno-ui"]:Destroy()
+         end
       end
    end
 
@@ -362,6 +365,12 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
          hum.JumpPower = JP.CurrentValue
       else
          hum.JumpHeight = JP.CurrentValue
+      end
+   end
+
+   if LTA.CurrentValue == true then
+      for i,v in pairs(game.Players:GetPlayers()) do
+         v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2)
       end
    end
 
