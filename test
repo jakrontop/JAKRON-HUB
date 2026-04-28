@@ -43,8 +43,6 @@ function setupUI()
     assets.perflabel = label
 end
 
-setupUI()
-
 plr.CharacterAdded:Connect(function(newChar)
   char = newChar
   hum = char:WaitForChild("Humanoid")
@@ -359,11 +357,11 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
             local str = v.DisplayName.."(@"..v.Name..") | "..math.round(util.distance(hrp,v.Character.HumanoidRootPart)).."m"
 
             esp.esp(v.Character,innoESPc.Color,str,"Jakron-inno")
-         end
-
-         if v.Character:FindFirstChild("Jakron-inno") then
-            v.Character["Jakron-inno"]:Destroy()
-            v.Character["Jakron-inno-ui"]:Destroy()
+         else
+            if v.Character:FindFirstChild("Jakron-inno") then
+               v.Character["Jakron-inno"]:Destroy()
+               v.Character["Jakron-inno-ui"]:Destroy()
+            end
          end
       end
    end
@@ -423,4 +421,5 @@ connections.infJump = game.UserInputService.JumpRequest:Connect(function()
         end
 end)
 
+setupUI()
 msg.message("Successfully loaded Jakron Hub!", Color3.new(0,1,0),3)
