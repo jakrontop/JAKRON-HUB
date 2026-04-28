@@ -299,6 +299,22 @@ local innoESP = mm2:CreateToggle({
 
 
 
+
+
+local LBB = Window:CreateTab("LUCKY BLOCKS Battlegrounds",838484753)
+
+LBB:CreateButton({
+   Name = "Gamble",
+   Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("SpawnLuckyBlock"):FireServer()
+end})
+
+
+
+
+
+
+
 print("STAT BLYAT")
 local Stats = game:GetService("Stats")
 
