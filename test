@@ -370,7 +370,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if LTA.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
-         v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2)
+         v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2))
       end
    end
 
