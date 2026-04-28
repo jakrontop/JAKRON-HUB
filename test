@@ -187,7 +187,14 @@ local LTA = Universal:CreateToggle({
    Name = "Local Teleport All",
    CurrentValue = false,
    Flag = "femboy",
-   Callback = function()
+   Callback = function(Value)
+     if Value == false then
+        for i,v in pairs(game.Players:GetPlayers()) do
+          for i,part in pairs(v.Character:GetDescendants()) do
+              part.CanCollide = true
+           end
+        end
+     end
  end})
 
 local Button = Universal:CreateButton({
@@ -371,6 +378,10 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
    if LTA.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
          v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2))
+
+         for i,part in pairs(v.Character:GetDescendants()) do
+            part.CanCollide = false
+         end
       end
    end
 
