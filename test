@@ -190,6 +190,7 @@ local LTA = Universal:CreateToggle({
    Callback = function(Value)
      if Value == false then
         for i,v in pairs(game.Players:GetPlayers()) do
+          if v == plr then continue end
           for i,part in pairs(v.Character:GetDescendants()) do
               part.CanCollide = true
            end
@@ -377,6 +378,7 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
 
    if LTA.CurrentValue == true then
       for i,v in pairs(game.Players:GetPlayers()) do
+         if v == plr then continue end
          v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2))
 
          for i,part in pairs(v.Character:GetDescendants()) do
