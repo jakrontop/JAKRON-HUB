@@ -310,8 +310,29 @@ game:GetService("ReplicatedStorage"):WaitForChild("SpawnLuckyBlock"):FireServer(
 end})
 
 
+LBB:CreateButton({
+   Name = "Gamble Super",
+   Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("SpawnSuperBlock"):FireServer()
+end})
 
+LBB:CreateButton({
+   Name = "Gamble Diamond",
+   Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("SpawnDiamondBlock"):FireServer()
+end})
 
+LBB:CreateButton({
+   Name = "Gamble Galaxy",
+   Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("SpawnGalaxyBlock"):FireServer()
+end})
+
+LBB:CreateButton({
+   Name = "Gamble Rainbow",
+   Callback = function()
+game:GetService("ReplicatedStorage"):WaitForChild("SpawnRainbowBlock"):FireServer()
+end})
 
 
 
