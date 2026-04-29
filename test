@@ -417,7 +417,9 @@ connections.FrameStep = game:GetService("RunService").RenderStepped:Connect(func
          v.Character:PivotTo(hrp.CFrame * CFrame.new(0,0,-2))
 
          for i,part in pairs(v.Character:GetDescendants()) do
-            part.CanCollide = false
+            if v:IsA("BasePart") then
+               part.CanCollide = false
+            end
          end
       end
    end
